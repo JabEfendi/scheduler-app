@@ -1,45 +1,78 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
+import React from 'react';
+import getCurrentDate from './components/dateAutomation';
 import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+  StatusBar,
+} from 'react-native';
 
-function App() {
-  const isDarkMode = useColorScheme() === 'dark';
-
+const AppScheduler = () => {
   return (
-    <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
-    </SafeAreaProvider>
-  );
-}
+    <SafeAreaView style={styles.mainWrapper}>
+      <StatusBar hidden={true} translucent />
 
-function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
+      <View style={styles.atas}>
+        <View>
+          <Text style={styles.h1}>My Test</Text>
+          <Text>{getCurrentDate()}</Text>
+        </View>
+        <View>
+          <Text>KANANHHHHHHH</Text>
+        </View>
+      </View>
 
-  return (
-    <View style={styles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
-      />
-    </View>
+      <View style={styles.bawah}>
+        <View style={styles.pointerBar}>
+          <TouchableOpacity>
+            <Text>test</Text>
+          </TouchableOpacity>
+        </View>
+        <Text>Jab Yoan</Text>
+      </View>
+    </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  container: {
+  mainWrapper: {
     flex: 1,
+    backgroundColor: 'white',
+  },
+
+  atas: {
+    // flex: 0,
+    height: '20%',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingLeft: '5%',
+    paddingRight: '5%',
+    borderBottomWidth: 2,
+    borderBottomColor: 'rgba(0,0,0,0.1)',
+  },
+
+  h1: {
+    fontWeight: 'bold',
+    fontSize: 24,
+  },
+
+  bawah: {
+    flex: 1,
+    // justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  pointerBar: {
+    backgroundColor: 'grey',
+    width: '90%',
+    height: 50,
+    justifyContent: 'center',
+    paddingLeft: 20,
+    paddingRight: 20,
   },
 });
 
-export default App;
+export default AppScheduler;
