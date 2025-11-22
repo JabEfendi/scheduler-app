@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import getCurrentDate from './components/dateAutomation';
+import styles from './style';
 import {
   View,
   Text,
   TouchableOpacity,
-  StyleSheet,
   SafeAreaView,
   StatusBar,
   FlatList,
@@ -13,11 +13,25 @@ import {
 
 const AppScheduler = () => {
   const [activeItem, setActiveItem] = useState('list');
-  const tasks = [
-    { id: '1', title: 'Task 1' },
-    { id: '2', title: 'Task 2' },
-    { id: '3', title: 'Task 3' },
-  ];
+  const [tasks, setTasks] = useState([
+    { id: '1', title: 'Task 1', desc: 'Ini deskripsi task 1 Ini deskripsi task 1 Ini deskripsi task 1 Ini deskripsi task 1', done: false },
+    { id: '2', title: 'Task 2', desc: 'Ini deskripsi task 2', done: false },
+    { id: '3', title: 'Task 3', desc: 'Ini deskripsi task 3', done: false },
+    { id: '4', title: 'Task 4', desc: 'Ini deskripsi task 4', done: false },
+    { id: '5', title: 'Task 5', desc: 'Ini deskripsi task 5', done: false },
+    { id: '6', title: 'Task 6', desc: 'Ini deskripsi task 6', done: false },
+    { id: '7', title: 'Task 7', desc: 'Ini deskripsi task 7', done: false },
+    { id: '8', title: 'Task 8', desc: 'Ini deskripsi task 8', done: false },
+    { id: '9', title: 'Task 9', desc: 'Ini deskripsi task 9', done: false },
+  ]);
+
+  const toggleCheck = (id) => {
+    setTasks(prev =>
+      prev.map(item =>
+        item.id === id ? { ...item, done: !item.done } : item
+      )
+    );
+  };
 
   return (
     <SafeAreaView style={styles.mainWrapper}>
@@ -32,6 +46,7 @@ const AppScheduler = () => {
           <Text>KANANHHHHHHH</Text>
         </View>
       </View>
+      
 
       <View style={styles.bawah}>
         <View style={styles.pointerBar}>
@@ -51,100 +66,39 @@ const AppScheduler = () => {
 
         <FlatList
           style={styles.bodyList}
+          contentContainerStyle={{ paddingBottom: 80 }}
           data={tasks}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <View style={{ backgroundColor: '#51a7fc', marginTop: 20, }}>
-              <Text>{item.title}</Text>
+            <View style={[ styles.bodyPost, {opacity: item.done ? 0.8 : 1, borderLeftColor: item.done ? '#74c777ff': '#2a85d0'} ]}>
+                <View style={[ styles.bodyPostItemLeft, {opacity: item.done ? 0.5 : 1, width: '50%'} ]}>
+                  <TouchableOpacity onPress={() => toggleCheck(item.id)} style={styles.buttonCheck}>
+                    <View style={[ styles.checkActivated, {borderColor: item.done ? '#74c777ff' : '#555'} ]}>
+                      {item.done && (
+                        <Icon name="check" size={14} color="#74c777ff" />
+                      )}
+                    </View>
+                  </TouchableOpacity>
+                  <View>
+                    <Text>{item.title}</Text>
+                    <Text style={{ fontSize: 12, color: '#555' }}>{item.desc}</Text>
+                  </View>
+                </View>
+                <View style={[ styles.bodyPostItemRight, {opacity: item.done ? 0.5 : 1} ]}>
+                  <TouchableOpacity><Icon name="pen" size={12} color="#000" /></TouchableOpacity>
+                  <TouchableOpacity><Icon name="trash" size={12} color="red" /></TouchableOpacity>
+                </View>
             </View>
           )}
         />
-
-        <TouchableOpacity style={styles.buttonAdd}>
-          <Icon name="plus" size={24} color="white" />
-        </TouchableOpacity>
       </View>
+
+
+      <TouchableOpacity style={styles.buttonAdd}>
+        <Icon name="plus" size={21} color="white" />
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  mainWrapper: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-
-  atas: {
-    // flex: 0,
-    height: '20%',
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingLeft: '5%',
-    paddingRight: '5%',
-    borderBottomWidth: 2,
-    borderBottomColor: 'rgba(0,0,0,0.1)',
-  },
-
-  h1: {
-    fontWeight: 'bold',
-    fontSize: 24,
-  },
-
-  bawah: {
-    flex: 1,
-    marginTop: 20,
-    // justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  pointerBar: {
-    backgroundColor: '#dedede',
-    width: '90%',
-    height: 50,
-    borderRadius: 10,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
-
-  itemBar: {
-    width: 80,
-    height: 40,
-    paddingLeft: 20,
-    paddingRight: 20,
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  itemBarActive: {
-    elevation: 2,
-    backgroundColor: 'white',
-  },
-
-
-  bodyPost: {
-    marginTop: 30,
-  },
-
-  bodyList: {
-    marginTop: 20,
-  },
-
-
-  buttonAdd: {
-    backgroundColor: '#51a7fc',
-    width: 80,
-    height: 80,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: '1%',
-    position: 'absolute',
-    bottom: '10%',
-    right: 20,
-    borderRadius: 999,
-  },
-});
 
 export default AppScheduler;
