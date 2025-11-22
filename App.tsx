@@ -16,6 +16,7 @@ const AppScheduler = () => {
   const tasks = [
     { id: '1', title: 'Task 1' },
     { id: '2', title: 'Task 2' },
+    { id: '3', title: 'Task 3' },
   ];
 
   return (
@@ -49,13 +50,19 @@ const AppScheduler = () => {
         </View>
 
         <FlatList
-          style={{ marginTop: 20 }}
+          style={styles.bodyList}
           data={tasks}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <Text>{item.title}</Text>
+            <View style={{ backgroundColor: '#51a7fc', marginTop: 20, }}>
+              <Text>{item.title}</Text>
+            </View>
           )}
         />
+
+        <TouchableOpacity style={styles.buttonAdd}>
+          <Icon name="plus" size={24} color="white" />
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -119,7 +126,25 @@ const styles = StyleSheet.create({
 
   bodyPost: {
     marginTop: 30,
-  }
+  },
+
+  bodyList: {
+    marginTop: 20,
+  },
+
+
+  buttonAdd: {
+    backgroundColor: '#51a7fc',
+    width: 80,
+    height: 80,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '1%',
+    position: 'absolute',
+    bottom: '10%',
+    right: 20,
+    borderRadius: 999,
+  },
 });
 
 export default AppScheduler;
