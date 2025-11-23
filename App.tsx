@@ -33,7 +33,7 @@ const AppScheduler = () => {
       })
       .then(data => {
         const mapped = data.map((task: any) => ({
-          id: task.ID.toString(),
+          id: task.ID,
           title: task.Name_Task,
           desc: task.Description,
           done: task.Status === "done"
@@ -52,7 +52,7 @@ const AppScheduler = () => {
 
       setTasks(prev =>
         prev.map(item =>
-          item.id === updatedTask.ID.toString()
+          item.id === updatedTask.ID
             ? { ...item, done: updatedTask.Status === "done" }
             : item
         )
@@ -122,7 +122,7 @@ const AppScheduler = () => {
           style={styles.bodyList}
           contentContainerStyle={{ paddingBottom: 80 }}
           data={tasks}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <TouchableOpacity onPress={() => { setSelectedTask(item); setModalVisible(true); }}>
               <View style={[ styles.bodyPost, {opacity: item.done ? 0.8 : 1, borderLeftColor: item.done ? '#74c777ff': '#2a85d0'} ]}>
