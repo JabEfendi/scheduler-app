@@ -24,7 +24,7 @@ const AppScheduler = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
 
   useEffect(() => {
-    fetch("http://10.0.2.2:8080/tasks")
+    fetch("http://192.168.0.138:8080/tasks")
       // .then((res) => res.json())
       .then(async (res) => {
         const text = await res.text();
@@ -45,7 +45,7 @@ const AppScheduler = () => {
 
   const toggleCheck = async (id: string) => {
     try {
-      const res = await fetch(`http://10.0.2.2:8080/tasks/${id}/toggle`, {
+      const res = await fetch(`http://192.168.0.138:8080/tasks/${id}/toggle`, {
         method: "PATCH"
       });
       const updatedTask = await res.json();
@@ -158,7 +158,7 @@ const AppScheduler = () => {
 
 
 
-      <Modal
+      {/* <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
@@ -205,7 +205,7 @@ const AppScheduler = () => {
             </TouchableOpacity>
           </View>
         </View>
-      </Modal>
+      </Modal> */}
     </SafeAreaView>
   );
 };
